@@ -37,3 +37,11 @@ Solve a series of challenges by using the correct Linux commands to find the hid
    ```bash
    git clone https://github.com/HlonieLive/terminal-treasure-hunt.git
    cd terminal-treasure-hunt
+
+2. **Make the script executable:**
+   ```bash
+   chmod +x treasure_hunt.py
+
+3. **Start your adventure:**
+   ```bash
+   ./treasure_hunt.py
