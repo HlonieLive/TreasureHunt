@@ -35,5 +35,5 @@ Solve a series of challenges by using the correct Linux commands to find the hid
 
 1. **Clone this repository:**
    ```bash
-   git clone https://github.com/yourusername/terminal-treasure-hunt.git
+   git clone https://github.com/HlonieLive/terminal-treasure-hunt.git
    cd terminal-treasure-hunt
