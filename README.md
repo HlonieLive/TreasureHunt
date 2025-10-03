@@ -45,3 +45,47 @@ Solve a series of challenges by using the correct Linux commands to find the hid
 3. **Start your adventure:**
    ```bash
    ./treasure_hunt.py
+4. **Follow the clues!**
+   Each level will present you with a scenario and challenge you to use the appropriate Linux command.
+5. **Use hints** by typing hint if you get stuck.
+6. **Quit anytime** by typing quit.
+
+## 🗺️ Game Structure
+
+**Level 1:** Find hidden files (ls -a)
+
+**Level 2:** Read file contents (cat) and search text (grep)
+
+**Level 3:** Manage file permissions (chmod)
+
+**Level 4:** Work with processes (ps)
+
+**Level 5:** Sort files by size (ls -lS)
+
+**Level 6:** Extract specific lines (head)
+
+**Level 7:** Handle archives (unzip)
+
+**Level 8:** Find the final treasure!
+
+## 💡 Tips for Success
+
+*Read each clue carefully.*
+
+*Pay attention to file and directory names.*
+
+*Remember that hidden files start with a dot (.).*
+
+*Use pwd to see your current location.*
+
+*Use cd to navigate between directories*
+
+*Don't be afraid to experiment with commands!*
+
+## 🧹 Cleanup
+
+**The game automatically cleans up all created files when you finish or quit. No manual cleanup required!**
+
+## 📜 License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
