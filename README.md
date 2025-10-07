@@ -1,7 +1,5 @@
 # Terminal Treasure Hunt
 
-![Terminal Treasure Hunt](https://img.shields.io/badge/Linux-Commands-Practice?style=for-the-badge&logo=linux&color=orange)
-
 An interactive terminal-based treasure hunt game designed to help you practice essential Linux commands in a fun and engaging way!
 
 ## 🎯 Objective
