@@ -1,0 +1,2 @@
+The key is hidden in the mountain.
+Next clue: Use 'chmod +x cave/locked_chest.txt' then './cave/locked_chest.txt'

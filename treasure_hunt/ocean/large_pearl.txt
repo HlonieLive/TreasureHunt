@@ -1,0 +1,2 @@
+This is the largest pearl in the ocean!
+Next clue: Use 'ls -lS ocean/' to sort by size

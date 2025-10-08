@@ -1,0 +1,5 @@
+The oasis is NORTH of here.
+The ruins are SOUTH.
+The mountains are EAST.
+The sea is WEST.
+Next clue: Use 'head -n 1 desert/sand_dunes.txt' to find the oasis

@@ -1,0 +1,2 @@
+The cave entrance is hidden behind waterfall.
+Next clue: Use 'grep cave forest/*.txt'

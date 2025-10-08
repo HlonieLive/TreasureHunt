@@ -1,0 +1,2 @@
+Follow the river to the cave.
+Next clue: Use 'cat forest/map.txt'
