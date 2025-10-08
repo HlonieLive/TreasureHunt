@@ -229,8 +229,13 @@ class TreasureHuntGame:
     def end_game(self):
         """Handle game ending"""
         self.clear_terminal_screen()
-        print("\nThanks for playing Terminal Treasure Hunt!")
-        print("Come back anytime to practice your Linux skills!")
+        if self.treasure_found:
+            print("\n" + "=" * 60)
+            print("🎉 CONGRATULATIONS! 🎉\nYou found the terminal treasure!")
+            print("=" * 60)
+            print("\nYou're are now command Master!!!\n\n• ls, ls -a, ls -l, ls -lS\n• cat, grep\n• chmod, ./ (execute)\n• ps, head\n• zip, unzip\n• pwd, cd\n\nKeep exploring the terminal - there's always more to learn!")
+        else:
+            print("\nThanks for playing Terminal Treasure Hunt!\nCome back anytime to practice your Command Line skills!")
 
         # Clean up game files
         os.chdir("..")
