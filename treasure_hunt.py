@@ -1,9 +1,9 @@
-# Terminal Treasure Hunt - A Linux command game
 import os
 import sys
 import subprocess
 import time
 import random
+
 
 class TreasureHuntGame:
     """Main game class for the terminal treasure hunt"""
@@ -16,8 +16,7 @@ class TreasureHuntGame:
 
     def setup_game_environment(self):
         """Create the game environment with hidden files and directories"""
-
-        # Game directory structure
+        # Create game directory structure
         os.makedirs("treasure_hunt", exist_ok=True)
         os.chdir("treasure_hunt")
 
@@ -101,7 +100,35 @@ class TreasureHuntGame:
 
     def clear_terminal_screen(self):
         """Clear the terminal screen"""
-        os.system('clear' if os.name == 'posix' else 'cls')
+        os.system("clear" if os.name == "posix" else "cls")
+
+    def get_level_hint(self, level_number):
+        """Return hints for each level"""
+        hints_dictionary = {
+            1: "Hidden files start with a dot (.) - try 'ls -a'",
+            2: "You need to read the contents of a file - use 'cat'",
+            3: "The file needs to be executable - use 'chmod +x'",
+            4: "You need to find a running process - use 'ps aux | grep'",
+            5: "Sort files by size - 'ls -lS' shows largest first",
+            6: "Show only the first line of a file - 'head -n 1'",
+            7: "You need to extract files from an archive - 'unzip'",
+            8: "The treasure is in a file named 'x_marks_the_spot.txt'",
+        }
+        return hints_dictionary.get(level_number, "No hint available")
+
+    def get_level_description(self, level_number):
+        """Return description for each level"""
+        descriptions_dictionary = {
+            1: "You stand at the entrance of a mysterious directory. Something hidden catches your eye...",
+            2: "You enter a dense forest. There might be a map hidden among the trees.",
+            3: "You find a cave with a locked chest. The chest seems to need special handling.",
+            4: "You climb a mountain. From the peak, you might spot something important.",
+            5: "You reach the ocean shore. Pearls of different sizes are scattered around.",
+            6: "You're lost in a vast desert. A message in the sand might guide you.",
+            7: "You discover ancient ruins. A scroll is hidden in an archive.",
+            8: "You've reached the final location! The treasure is buried here.",
+        }
+        return descriptions_dictionary.get(level_number, "Unknown level")
 
     def display_introduction(self):
         """Display the game introduction"""
@@ -114,10 +141,102 @@ class TreasureHuntGame:
         print("=" * 60)
         input("\nPress Enter to start your adventure...")
 
+    def play_current_level(self):
+        """Play the current level"""
+        self.clear_terminal_screen()
+        print(f"\n{'='*20} LEVEL {self.current_level} {'='*20}")
+        print(self.get_level_description(self.current_level))
+        print("\nCurrent directory:", os.getcwd())
+        print("\nWhat command will you use? (Type 'hint' for help or 'quit' to exit)")
+
+        while True:
+            user_command = input("\n$ ").strip()
+
+            if user_command.lower() == "quit":
+                return False
+            elif user_command.lower() == "hint":
+                print(f"\nHint: {self.get_level_hint(self.current_level)}")
+                continue
+            elif user_command.lower() == "pwd":
+                print(os.getcwd())
+                continue
+            elif user_command.startswith("cd "):
+                try:
+                    target_directory = user_command[3:].strip()
+                    if target_directory == "..":
+                        os.chdir("..")
+                    else:
+                        os.chdir(target_directory)
+                    print(f"Changed directory to: {os.getcwd()}")
+                except FileNotFoundError:
+                    print("Directory not found")
+                except NotADirectoryError:
+                    print("Not a directory")
+                continue
+            elif user_command == "ls":
+                print("\n".join(sorted(os.listdir("."))))
+                continue
+            elif user_command == "ls -a":
+                items_list = sorted(
+                    os.listdir("."),
+                    key=lambda item_name: (item_name.startswith("."), item_name),
+                )
+                print("\n".join(items_list))
+                continue
+            elif user_command == "ls -l":
+                try:
+                    command_result = subprocess.run(
+                        ["ls", "-l"], capture_output=True, text=True
+                    )
+                    print(command_result.stdout)
+                except:
+                    # Fallback for systems without ls command
+                    for file_name in sorted(os.listdir(".")):
+                        print(f"-rw-r--r-- 1 user group 0 Jan 1 00:00 {file_name}")
+                continue
+
+            # For other commands, try to execute them
+            try:
+                if user_command:  # Only execute non-empty commands
+                    command_parts = user_command.split()
+                    command_result = subprocess.run(
+                        command_parts, capture_output=True, text=True, timeout=5
+                    )
+                    if command_result.returncode == 0:
+                        print(command_result.stdout)
+                    else:
+                        print(command_result.stderr)
+            except subprocess.TimeoutExpired:
+                print("Command timed out")
+            except FileNotFoundError:
+                print("Command not found")
+            except Exception as error_message:
+                print(f"Command failed: {error_message}")
+
     def run_game(self):
         """Main game loop"""
         self.display_introduction()
-        print("Game structure ready.")
+
+        while self.current_level <= self.maximum_level and not self.treasure_found:
+            should_continue = self.play_current_level()
+            if not should_continue:
+                break
+            # For now, just increment level after each play session
+            self.current_level += 1
+
+        self.end_game()
+
+    def end_game(self):
+        """Handle game ending"""
+        self.clear_terminal_screen()
+        print("\nThanks for playing Terminal Treasure Hunt!")
+        print("Come back anytime to practice your Linux skills!")
+
+        # Clean up game files
+        os.chdir("..")
+        import shutil
+
+        shutil.rmtree("treasure_hunt", ignore_errors=True)
 
 
 def main():
